@@ -4,9 +4,9 @@ from flaskext.mysql import MySQL
 app=Flask(__name__)
 
 mysql= MySQL()
-app.config['MYSQL_DATABASE_USER']='host'
-app.config['MYSQL_DATABASE_PASSWORD']= 'password'
-app.config['MYSQL_DATABASE_DB']= 'dbmsminipro'
+app.config['MYSQL_DATABASE_USER']='root'
+app.config['MYSQL_DATABASE_PASSWORD']= 'bangtan'
+app.config['MYSQL_DATABASE_DB']= 'dbmsproject'
 app.config['MYSQL_DATABASE_HOST']='localhost'
 mysql.init_app(app)
 
@@ -17,32 +17,30 @@ conn=mysql.connect()
 def index():
 	return render_template('index.html')
 
-@app.route('/vehicles')
+
+@app.route('/vehicles', methods=['GET','POST'])
 def info():
+	
 	cursor=conn.cursor()
-
 	cursor.execute("SELECT * from vehicle")
-	data=cursor.fetchall()
-	return render_template('bookingpage.html', data=data)
-
-@app.route('/vehicles/add')
-def add():
-	if request.method=="POST":
-		custid=request.form['Cust_id']
-		name=request.form['Name']
-		dobb=request.form['DOB']
-		phone=request.form['Phone']
-		email=request.form['Email']
-		addresss=request.form['Address']
-		aaadhar=request.form['Adhaar']
+	data=cursor.fetchall()	
+	cursor.close()
+	if request.method=='POST':
+		vehid=request.form.get("vehicle_id")
+		name=request.form.get("cust_name")
+		dateofbirth=request.form.get("dob")
+		number=request.form.get("phone")
+		mail=request.form.get("email")
+		aad=request.form.get("aadhar")
+		add=request.form.get("address")
 		cursor=conn.cursor()
-		sql= "insert into customer(customer_id,customer_name,dob,phone_no,email_id, aadhar, address) values (%s,%s,%s,%s,%s,%s,%s)"
-		
-		
-		cursor.execute(sql,(custid,name,dobb,phone,email,aaadhar,addresss))
+
+		query= "insert into customer(cust_name,dob,vehicle_id,phone,email,aadhar,address) values(%s,%s,%s,%s,%s,%s,%s)"
+		cursor.execute(query,(name,dateofbirth,vehid,number,mail,aad,add))
 		conn.commit()
-		return("nothing fucked")
-	return render_template('bookingpage.html')
+	return render_template('bookingpage.html', data=data)
+		
+	
 
 
 
