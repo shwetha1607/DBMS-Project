@@ -3,13 +3,13 @@ use dbmsproject;
 create table vehicle(vehicle_id varchar(10) primary key, model_name varchar(20), release_date date, price double, engineC integer, fuel varchar(15), mileage integer, quantity integer); 
 
 insert into vehicle values('V01', 'Lightning McQueen', '2018-05-16', 5.81, 128, 'Petrol', 40, 10);
-insert into vehicle values('V02', 'Cruz Ramirez', '2018-09-09', 8.77, 220, 'Petrol', 25, 15);
+insert into vehicle values('V02', 'Cruz Ramirez', '2018-09-09', 8077, 220, 'Petrol', 25, 15);
 insert into vehicle values('V03', 'DeLorean', '2017-02-02', 4.73, 128, 'Diesel', 18, 20);
 insert into vehicle values('V04', 'Ecto1', '2017-06-20', 10.5, 250, 'Petrol', 23, 5);
 insert into vehicle values('V05', 'Ford Anglia', '2017-12-10', 7.35, 115, 'Diesel', 27, 10);
 
  create table employee(emp_id integer not null auto_increment primary key, emp_name varchar(30));
- insert into employee values (1001, 'Voldemort');
+ insert into employee values (1001, 'vVldemort');
  insert into employee(emp_name) values('Bellatrix');
  insert into employee(emp_name) values('Peter');
  
@@ -35,5 +35,8 @@ create table booking(booking_id integer not null auto_increment primary key, boo
  create table login_credentials(emp_id integer references employee(emp_id), passwordd varchar(20) not null, primary key(emp_id,passwordd));
  create table sales_info(vehicle_id varchar(10) references vehicle(vehicle_id),no_of_models_sold integer, total_sales double, primary key(vehicle_id));
  
- 
+use dbmsproject;
+create table parts_used(service_num integer references service(service_num), no_of_parts integer, part1 varchar(5), part2 varchar(5), part3 varchar(5), part4 varchar(5), part5 varchar(5));
+create table billing(billing_id integer not null auto_increment primary key, cust_id integer references customer(cust_id), vehicle_id varchar(10) references vehicle(vehicle_id), total_amt double, service_num integer references service(service_num)); 
+
  
