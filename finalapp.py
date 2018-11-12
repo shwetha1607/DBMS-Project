@@ -68,6 +68,8 @@ def show():
 	dataB=cursor.fetchall()
 	BRow=dataB[0]
 	conn.commit()
+	
+	cursor.execute("update vehicle set quantity= quantity-1 where vehicle_id = %s", CRow[2])
 
 	if request.method == 'POST':
 		decision = request.form.get('decision')
