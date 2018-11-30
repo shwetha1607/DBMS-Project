@@ -6,3 +6,4 @@ update vehicle set model_name="Veloster" where vehicle_id="V03";
 update vehicle set model_name="i40 Sedan" where vehicle_id="V04";
 update vehicle set model_name="Nexo" where vehicle_id="V05";
 
+update vehicle set price=20.5 where vehicle_id="V01";
